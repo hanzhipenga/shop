@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>shop</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+		<!-- <link rel="stylesheet" type="text/css" href="css/dierye.css"/> -->
+        <link href="/css/bootstrap.css" rel='stylesheet' type='text/css' />
+        <link href="/css/style.css" rel='stylesheet' type='text/css' />
+        <script src="/js/jquery.min.js"></script>
+        <script src="/js/jquery-2.1.0.js" type="text/javascript"></script>
+        <!---- start-smoth-scrolling---->
+        <script type="text/javascript" src="/js/move-top.js"></script>
+        <script type="text/javascript" src="/js/easing.js"></script>
+        <script type="text/javascript">
+            jQuery(document).ready(function($) {
+                $(".scroll").click(function(event){     
+                    event.preventDefault();
+                    $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+
+                });
+                $(":input[name='attr_input_type']:eq(1)").change(function(){
+                	$("#textdis").attr("disabled",false);
+                });
+               $(":input[name='attr_input_type']:eq(1)").siblings().change(function(){
+                	$("#textdis").attr("disabled","disabled");
+                });
+            });
+            $(function() {
+                $("button").hover(function() {
+                    $(this).addClass('color');
+                },function() {
+                    $(this).removeClass('color');
+                });
+                $(".navig li:eq(4)").mouseenter(function(){
+                    $(".shopbox").css('display','block');
+               
+                });
+                $(".father").mouseleave(function(){
+                    $(".shopbox").css('display','none');
+               
+                });
+                var th,td,tt,tr;
+                var t = new Array();   
+                var index,num,html,val;
+                $('.xuanxiang a').click(function(event){
+                    var arr= new Array();
+                    var v = new Array();
+                    if($(this).hasClass('bianse')){
+                        $(this).removeClass('bianse');
+                        html = $(this).html();
+                        td = $(this).parent().find('.bianse');
+                        th = $(this).parent().parent().find('.guige').html();
+                        num = $("tbody tr td[name^='"+html+"'").index();
+                        if(td[0]== undefined){
+                            $('thead td').each(function(){
+                                if($(this).html()==th){
+                                    $(this).remove();   
+                                };
+                            });
+                            if(num==0&& $("tbody tr td").eq(num+1).children().attr('name')=='price[]'){
+                                $("tbody tr td[name^='"+html+"'").parent().remove();
+                            }else{
+                                $("tbody tr td[name^='"+html+"'").remove();
+                            };   
+                        }else{
+                            $("tbody tr td[name^='"+html+"'").each(function(){
+                                
+                                $(this).parent().remove();
+                            });
+                        };
+                    }else{
+                        $(this).addClass('bianse');
+                        td = $(this).html();
+                        val = $(this).attr('value');
+                        th = $(this).parent().parent().find('.guige').html();
+                        $('thead td').each(function(key,value){
+                            t[key] = $(this).html();
+                        });
+                        if($.inArray(th,t)<0){
+                            tt = '<td class="th_td" name="'+th+'">'+th+'</td>';
+                            $('thead tr').prepend(tt);
+                         if($('tbody').find('.tr_td')[0]!=undefined){
+                                tr = '<td class="tr_td" name="'+td+'">'+'<input type="hidden" name="k[]" value="'+val+'"/>'+'<input type="text" name="name[]" class="tr_td" value="'+td+'"/>'+'</td>';
+                                $('tbody tr').prepend(tr);
+                            }else{
+                                tr = '<tr>'+'<td class="tr_td" name="'+td+'">'+'<input type="hidden" name="k[]" value="'+val+'"/>'+
+                                '<input type="text" name="name[]" class="tr_td" value="'+td+'"/>'+'</td>'+
+                            '<td><input type="text" name="price[]"></td>'+
+                            '<td><input type="text" name="kucun[]"></td>'+
+                            '<td><input type="file" name="image[]"></td>'+'</tr>';
+                            $('tbody').prepend(tr);
+                            }
+                        }else{
+
+                            $(this).parent().parent().siblings('.guige_ul').children('.xuanxiang').children('.bianse').each(function(key,value){    arr[key] = $(this).html();
+                                    v[key] = $(this).attr('value');
+                            });
+                            console.log(v);
+                            if(arr.length==0){
+
+                                tr ='<tr>'+'<td class="tr_td" name="'+td+'">'+'<input type="hidden" name="k[]" value="'+val+'"/>'+'<input type="text" name="name[]" class="tr_td" value="'+td+'"/>'+'</td>'+'<td><input type="text" name="price[]"></td>'+
+                            '<td><input type="text" name="kucun[]"></td>'+
+                            '<td><input type="file" name="image[]"></td>'+'</tr>';
+                            $('tbody').prepend(tr);
+                            }else{
+                                index = $("thead tr td[name^='"+th+"'").index();
+                                if(index==0){
+                                    for(var i=0; i<arr.length; i++){
+                                        tr ='<tr>'+'<td class="tr_td" name="'+td+'">'+'<input type="hidden" name="k[]" value="'+val+'"/>'+'<input type="text" name="name[]" class="tr_td" value="'+td+'"/>'+'</td>'+'<td class="tr_td" name="'+arr[i]+'">'+'<input type="hidden" name="k[]" value="'+v[i]+'"/>'+'<input type="text" name="name[]" class="tr_td" value="'+arr[i]+'"/>'+'</td>'+
+                                        '<td><input type="text" name="price[]"></td>'+
+                                        '<td><input type="text" name="kucun[]"></td>'+
+                                        '<td><input type="file" name="image[]"></td>'+'</tr>';
+                                        $('tbody').prepend(tr);
+                                    }
+                                }else{
+                                    for(var i=0; i<arr.length; i++){
+                                        tr ='<tr>'+'<td class="tr_td" name="'+arr[i]+'">'+'<input type="hidden" name="k[]" value="'+v[i]+'"/>'+'<input type="text" name="name[]" class="tr_td" value="'+arr[i]+'"/>'+'</td>'+'<td class="tr_td" name="'+td+'">'+'<input type="hidden" name="k[]" value="'+val+'"/>'+'<input type="text" name="name[]" class="tr_td" value="'+td+'"/>'+'</td>'+
+                                        '<td><input type="text" name="price[]"></td>'+
+                                        '<td><input type="text" name="kucun[]"></td>'+
+                                        '<td><input type="file" name="image[]"></td>'+'</tr>';
+                                        $('tbody').prepend(tr);
+                                    }
+                                }
+                            } 
+                        }
+                    }; 
+                });
+            })
+        </script>
+<!--start-smoth-scrolling-->
+	</head>
+	<body>
+    <!--start-header-->
+    <div class="father">
+    <div class="header">
+        <div class="container">
+            <div class="head">
+            <div class="navigation">
+                 <span class="menu"></span> 
+                    <ul class="navig">
+                        <li><a href="index">主页</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="shop">店铺管理</a></li>
+                        <li><a href="car">购物车管理</a></li>
+                        <li><a href="#" class="active">商品管理</a></li>
+                        <li><a href="logout">退出登录</a></li>
+                    </ul>
+            </div>
+            <div class="header-right">
+                <div class="search-bar">
+                    <input type="text" value="Search" onFocus="this.value = '';" onBlur="if (this.value == '') {this.value = 'Search';}">
+                    <input type="submit" value="">
+                </div>
+                <ul>
+                    <li><a href="#"><span class="fb"> </span></a></li>
+                    <li><a href="#"><span class="twit"> </span></a></li>
+                    <li><a href="#"><span class="pin"> </span></a></li>
+                    <li><a href="#"><span class="rss"> </span></a></li>
+                    <li><a href="#"><span class="drbl"> </span></a></li>
+                </ul>
+            </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>  
+    <div class="shopbox">
+        <ul>
+            <li><a href="goodslist">商品展示</a></li>
+            <li><a href="catlist">商品分类</a></li>
+            <li><a href="typelist">商品类型</a></li>
+        </ul>
+    </div>
+    </div>
+    <div class="goods" id="attributeadd">
+		<form method="post" action="addgoodsattr" enctype="multipart/form-data" autocomplete="off">  
+        <input type="hidden" name="goods_id" value="{$goods}"/>
+        <div class="addgood">
+            <ul class="guige_div">
+                <div class="name_div">商品规格:</div>
+                {foreach $name as $v}
+                <ul class="guige_ul">
+                        <li class="guige">{$v.guige_name}:</li>
+                        <li class="xuanxiang">
+                        {foreach $value as $vv}
+                            {if $v.id==$vv.guige_id}
+                            <a href="javascript:void(0);" value="{$vv.value_id}">{$vv.guige_value}</a>
+                            {/if}
+                        {/foreach}
+                        </li>
+                </ul>
+                {/foreach}
+                <table style="width: 800px;" class="table_t">
+                    <thead style="height: 32px;line-height: 32px;">
+                        <tr>
+                            <td>价格</td>
+                            <td>库存</td>
+                            <td>图片</td>
+                        </tr>
+                    </thead>
+                    <tbody style="height: 32px;line-height: 32px;">
+                        
+                    </tbody>
+                </table>        
+            </ul>
+        </div>
+        <button class="button1" type="submit">提交</button>   
+        <button class="button2" type="reset" name="reset">重置</button> 
+        </form>   
+	</div>	
+	</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>shop</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="keywords" content="Coffee Break Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
+        Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+        <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+		<!-- <link rel="stylesheet" type="text/css" href="css/dierye.css"/> -->
+        <link href="/css/bootstrap.css" rel='stylesheet' type='text/css' />
+        <link href="/css/style.css" rel='stylesheet' type='text/css' />
+        <script src="/js/jquery.min.js"></script>
+        <!---- start-smoth-scrolling---->
+        <script type="text/javascript" src="/js/move-top.js"></script>
+        <script type="text/javascript" src="/js/easing.js"></script>
+        <script type="text/javascript">
+            jQuery(document).ready(function($) {
+                $(".scroll").click(function(event){     
+                    event.preventDefault();
+                    $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+
+                });
+                $(":input[name='attr_input_type']:eq(1)").change(function(){
+                	$("#textdis").attr("disabled",false);
+                });
+               $(":input[name='attr_input_type']:eq(1)").siblings().change(function(){
+                	$("#textdis").attr("disabled","disabled");
+                });
+            });
+            $(function() {
+                $("button").hover(function() {
+                    $(this).addClass('color');
+                },function() {
+                    $(this).removeClass('color');
+                });
+                $(".navig li:eq(4)").mouseenter(function(){
+                    $(".shopbox").css('display','block');
+               
+                });
+                $(".father").mouseleave(function(){
+                    $(".shopbox").css('display','none');
+               
+                });
+
+            })
+        </script>
+<!--start-smoth-scrolling-->
+	</head>
+	<body>
+	
+    <!--start-header-->
+    <div class="father">
+    <div class="header">
+        <div class="container">
+            <div class="head">
+            <div class="navigation">
+                 <span class="menu"></span> 
+                    <ul class="navig">
+                        <li><a href="index">主页</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="shop">店铺管理</a></li>
+                        <li><a href="car">购物车管理</a></li>
+                        <li><a href="#" class="active">商品管理</a></li>
+                        <li><a href="logout">退出登录</a></li>
+                    </ul>
+            </div>
+            <div class="header-right">
+                <div class="search-bar">
+                    <input type="text" value="Search" onFocus="this.value = '';" onBlur="if (this.value == '') {this.value = 'Search';}">
+                    <input type="submit" value="">
+                </div>
+                <ul>
+                    <li><a href="#"><span class="fb"> </span></a></li>
+                    <li><a href="#"><span class="twit"> </span></a></li>
+                    <li><a href="#"><span class="pin"> </span></a></li>
+                    <li><a href="#"><span class="rss"> </span></a></li>
+                    <li><a href="#"><span class="drbl"> </span></a></li>
+                </ul>
+            </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <a href="addguigevalue" class="addtype">添加规格值</a>
+    </div>  
+    <div class="shopbox">
+        <ul>
+            <li><a href="goodslist">商品展示</a></li>
+            <li><a href="catlist">商品分类</a></li>
+            <li><a href="typelist">商品类型</a></li>
+        </ul>
+    </div>
+    </div>
+    <div class="goods" id="attributeadd">
+		<form method="post" action="addguige_name" enctype="multipart/form-data" autocomplete="off">   
+        <table align="center" height="400px" width="800px">
+            <tr>
+                <td>属性名称：</td>
+                <td><input type="text" required="required"  name="guige_name"></input> </td>
+
+            </tr>
+            <tr>
+                <td>所属商品类型：</td>        
+                <td><select name="type_id">
+                	<?php foreach($types as $type) : ?>
+                	<option value="<?php echo $type['type_id'];?>">
+                		<?php echo $type['type_name'];?></option>
+                	<?php endforeach;?>
+                </select></td>
+            </tr> 
+             <tr>
+                <td>是否可选：</td>        
+                <td>
+                	<input type="radio" name="attr_type" value="0" checked="checked">唯一属性</input>
+                	<input type="radio" name="attr_type" value="1">单选属性</input>
+                	<input type="radio" name="attr_type" value="2">复选属性</input>
+                </td>
+            </tr>                   
+        </table>
+        <button class="button1" type="submit">提交</button>   
+        <button class="button2" type="reset" name="reset">重置</button> 
+       
+        </form>   
+		</div>	
+	</body>
+</html>

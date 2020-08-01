@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>巴黎后台注册页面</title>
+		<link href="/css/GDS.css" type="text/css" rel="stylesheet"/>
+    
+    <script type="text/javascript" src="/js/jquery-2.1.0.js"></script>
+    <script type="text/javascript">
+      $(function() {
+
+        $("button").hover(function() {
+          $(this).addClass('color');
+        },function() {
+          $(this).removeClass('color');
+        });
+        
+      });
+        $(document).ready(function(){
+
+        $("img").hide();
+        var f1, f2, f3, f4,f5;
+        $("input:eq(0)").blur(function(){
+          $("img:eq(0)").show();
+          var name = $("input:eq(0)").val();          
+          if(name.length>=2&&name.length<=20){
+            $("img:eq(0)").attr("src","/images/dui.png");
+            f1 = true;
+            $("p:eq(0)").html('请填写2-20个任意字符作为用户名');
+            $("p:eq(0)").css('color','black');
+            }else{
+            $("img:eq(0)").attr("src","/images/cuo1.png");
+            f1 = false;
+            $("p:eq(0)").html('用户名字数不够!!!');
+            $("p:eq(0)").css('color','red');
+            }
+            $.post('repeat',{name:name},function(data){
+              
+            if(data==1){
+              $("img:eq(0)").attr("src","/images/cuo1.png");
+               $("p:eq(0)").html('用户名已被注册!!!');
+               $("p:eq(0)").css('color','red');
+               f1 = false;
+            }
+        });
+            });
+        $("input:eq(1)").blur(function(){
+          $("img:eq(1)").show();
+          var psw = $("input:eq(1)").val();
+          if(psw.length>=6&&psw.length<=20){
+            $("img:eq(1)").attr("src","/images/dui.png");
+            f2 = true;
+            $("p:eq(1)").html('请设置6-20位任意字符作为密码');
+            $("p:eq(1)").css('color','black');
+            }else{
+            $("img:eq(1)").attr("src","/images/cuo1.png");
+            f2 = false;
+            $("p:eq(1)").html('密码长度不够!!!');
+            $("p:eq(1)").css('color','red');
+            }
+        });
+        $("input:eq(2)").blur(function(){
+          $("img:eq(2)").show();
+          var psw1 = $("input:eq(1)").val();
+          var psw2 = $("input:eq(2)").val();
+          if(psw1==psw2){
+            $("img:eq(2)").attr("src","/images/dui.png");
+            f3 = true;
+            $("p:eq(2)").html('请确认密码');
+            $("p:eq(2)").css('color','black');
+            }else{
+            $("img:eq(2)").attr("src","/images/cuo1.png");
+            f3 = false;
+            $("p:eq(2)").html('两次密码输入不同!!!');
+            $("p:eq(2)").css('color','red');
+            }
+        });
+        $("input:eq(3)").blur(function(){
+          $("img:eq(3)").show();
+          var mobile = $("input:eq(3)").val();
+          if((mobile.match(/^[1][354][0-9]{9}/gi))&&mobile.length==11){
+            $("img:eq(3)").attr("src","/images/dui.png");
+            f4 = true;
+            $("p:eq(3)").html('请输入正确格式的手机号');
+            $("p:eq(3)").css('color','black');
+          }else{
+            $("img:eq(3)").attr("src","/images/cuo1.png");
+            f4 = false;
+            $("p:eq(3)").html('手机号格式或长度不对！！！');
+            $("p:eq(3)").css('color','red');
+          }          
+        });
+            $("input:eq(4)").blur(function(){
+                $("img:eq(4)").show();
+                var email = $("input:eq(4)").val();
+                if(email.match(/^[a-z0-9]+([._]*[a-z0-9]+)*@[a-z0-9]+([_.][a-z0-9]+)+$/gi)){
+                    $("img:eq(4)").attr("src","/images/dui.png");
+                    f5 = true;
+                    $("p:eq(4)").html('请输入正确格式的E—mail');
+                    $("p:eq(4)").css('color','black');
+                }else{
+                    $("img:eq(4)").attr("src","/images/cuo1.png");
+                    f5 = false;
+                    $("p:eq(4)").html('邮箱格式不对!!!');
+                    $("p:eq(4)").css('color','red');
+                }
+            });
+       $("form").submit(function(){
+          if(f1&&f2&&f3&&f4&&f5==true){
+            alert("注册成功,即将返回登录页面");
+          }else{
+            alert("请完善信息或信息有误");
+            return false;
+          }
+        });
+      });
+    </script>
+	</head>
+	<body>
+		<div class="zhuceback">
+	    	
+	    </div> 
+	    
+	    <div class="outerdiv">
+	    <div class="register">   
+           <h1>注册新账号</h1>   
+            <form method="post" action="add" autocomplete="off">   
+               <input type="text" required="required" placeholder="用户名" name="user_name"><div><img/></div></input><p>请填写2-10个任意字符作为用户名</p><br />
+                <input type="password" required="required" placeholder="设置密码" name="password"><div><img/></div></input><p>请设置6-20位任意字符作为密码</p> <br />  
+                <input type="password" required="required" placeholder="确认密码" name="repassword"><div><img/></div></input><p>请确认密码</p> <br />
+                <input type="text" required="required" placeholder="手机号" name="mobile"><p>请输入手机号</p><div><img/></div> <br />
+                <input type="email" required="required" placeholder="邮箱" name="email"></input><div><img/></div><p>请输入正确格式的E—mail</p> <br />
+                <button class="but3" type="submit">提交</button>
+            </form>    
+           </div>
+        </div>  
+        
+	</body>
+</html>

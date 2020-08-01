@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>购物车</title>
+    <link href="/css/reset.css" rel="stylesheet" type="text/css" />
+    <link href="/css/page_car.css" rel="stylesheet" type="text/css" />
+    <link href="/css/page.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="/js/jquery-2.1.0.js"></script>
+</head>
+
+<body>
+    <!-- 顶部导航 -->
+    <div id="top">
+        <div class="car_wrap clear">
+            <div class="topRight fr clear">
+                <ul class="leftNav fl">
+                    <li>
+                        <a class="padl10" title="查看购物车" name="购物车" href="lookShoppingCar.html">购物车</a>
+                        <span class="sep">|</span>
+                    </li>
+                    <li class="myOrder">
+                        <a title="查看我的订单" name="我的订单" href="lookOrderForm.html" target="_blank">我的订单</a><i class="myLibIcon"></i>
+                        <span class="sep">|</span></li>
+                    
+                    </ul>
+                    <ul class="rightNav fr">
+                        <li class="myInformation"><a title="登录网站" href="login.html">个人中心</a><i class="myLibIcon"></i><span class="sep">|</span> </li>
+                        <li><a title="退出系统" name="退出" href="login.html">退出</a></li>
+                    </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /顶部导航 -->
+    <!-- logo与进度反馈区域 -->
+    <div id="logo_line" class="car_wrap clear">
+        <div class="logo fl">
+            <a href="index.html">
+                <img src="/images/logo/logo7.png" alt="时代图书在线" title="欢迎进入当当图书在线">
+            </a>
+        </div>
+        <div class="shopCar_tit fl">
+            <h1>购物车</h1>
+        </div>
+        <div class="order_path order_path_1 ">
+        </div>
+    </div>
+    <div class="car_hr"></div>
+    <!-- /logo与进度反馈区域 -->
+    <div class="content_show_wrapper">
+        <div class="cart_notification cart_error" style="">
+            <div class="message">
+                <p></p>
+            </div>
+        </div>
+        <div id="group_show">   
+            <div class="groups_wrapper">
+                <table class="cart_group_item  cart_group_item_product">
+
+                    <thead>
+                        <tr>
+                            <th class="cart_overview">
+                                <div class="cart_group_header">
+                                    <input class="js_group_selector cart_group_selector" type="checkbox">
+                                    <h2>购物车</h2>
+                                </div>
+                            </th>
+                            <th class="cart_price">单价（元）</th>
+                            <th class="cart_num">数量</th>
+                            <th class="cart_total">小计（元）</th>
+                            <th class="cart_option">操作</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody class="hide">
+                        {foreach $car_goods as $v}
+                        <tr class="cart_item " hashid="d150603p892053zc" id="1057066_d150603p892053zc" product_id="892053" item_price="48.00" category_v3_3="18" brand_id="623" product_type="product">
+                            <td valign="top">
+                                <div class="cart_item_desc clear">
+                                    <input class="cart_item_selector check" id="{$v.car_id}" data-item-key="1057066_d150603p892053zc" type="checkbox" value="{$v.price*$v.num}">
+                                    <div class="cart_item_desc_wrapper">
+                                        <a class="cart_item_pic" href="showDetail" target="_blank"> <img src="{$v.image}"> <span class="sold_out_pic png"></span> </a> <a class="cart_item_link" href="showDetail" target="_blank">{$v.goods_name}</a>
+                                        <p class="sku_info">规格：<span class="cart_item_attribute">{$v.guige}</span>&nbsp; </p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="cart_item_price">
+                                    <p class="jumei_price">{$v.price}</p>
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <div class="cart_item_num ">
+                                    <div class="item_quantity_editer clear" data-item-key="1057066_d150603p892053zc"> 
+                                        <input type="hidden" class="car_id" value="{$v.car_id}">
+                                        <span class="decrease_one jian" disabled>-</span>
+                                        <input class="item_quantity car" value={$v.num} type="text"> 
+                                        <span class="increase_one jia" >+</span> 
+                                    </div>
+                                    <div class="item_shortage_tip"> </div>
+                                </div>
+                            </td>
+                            
+                            <td>
+                                <div class="cart_item_total">
+                                    <p class="item_total_price">{$v.price*$v.num}</p>
+                                    
+                                </div>
+                            </td>
+                            <td>
+                                <div class="cart_item_option">
+                                    <a class="icon_small delete_item png" data-item-key="1057066_d150603p892053zc" href="del?car_id={$v.car_id}" title="删除" onclick="javascript:return confirm('您确定删除此条记录吗？');">删除</a>
+                                </div>
+                            </td>
+                        </tr>                       
+                        {/foreach}
+                    </tbody>                    
+                </table>
+            </div>
+            <script type="text/javascript">
+                        $(function(){     
+                            $('.check').click(function() {
+                                var sum = 0;
+                                var length = $('.hide').find('.check:checked').length;
+                                $('.total_amount').html(length);
+                                $("input:checkbox:checked").each(function(){
+                                    sum+= parseInt(this.value);
+                                });
+                                $('.total_price').html(sum);
+                            });
+                            var car_id = 0;
+                            var t =0;
+                            $(".jia").click(function($this){    
+                                t = $(this).parent().find(".car").val();
+                                car_id = $(this).parent().find(".car_id").val();
+                                $(this).parent().find(".jian").removeAttr("disabled");                 //当按加1时，解除$(".jian")不可读状态    
+                                t = (parseInt(t)+1);
+                                //console.log(t);
+                                 $.ajax({                                          
+                                            type:"POST",
+                                            url:"num?car_id="+car_id,
+                                            data:{
+                                                "t":t,    
+                                            },
+                                            dataType:"text",                                          
+                                            success:function(ret) {  
+                                                location.reload();              
+                                            }
+                                        });
+                            });    
+                            $(".jian").click(function($this){ 
+                            t = $(this).parent().find(".car").val(); 
+                            car_id = $(this).parent().find(".car_id").val();  
+                                if (parseInt(t)>1) {                     //判断数量值大于1时才可以减少    
+                                    t = (parseInt(t)-1) ;   
+                                }else{    
+                                    $($this).attr("disabled","disabled");    //当$(".jian")为1时，$(".jian")不可读状态    
+                                }    
+                                //console.log(t);
+                                 $.ajax({                                          
+                                            type:"POST",
+                                            url:"num?car_id="+car_id,
+                                            data:{
+                                                "t":t     
+                                            },
+                                            dataType:'text',                                          
+                                            success:function(ret) {   
+                                                location.reload();           
+                                            }
+                                        });
+                            });    
+                            $('.all_selector').click(function(){
+                                var status = $('.all_selector').prop('checked');
+                                //console.log(status);
+                                if(status==true){
+                                    $(this).prop('checked',true);
+                                    $('.hide').find('.check').prop('checked','checked');
+                                    var sum = 0;
+                                    var length = $('.hide').find('.check:checked').length;
+                                    $('.total_amount').html(length);
+                                    $("input:checkbox:checked").each(function(){
+                                        sum+= parseInt(this.value);
+                                    });
+                                    $('.total_price').html(sum);
+                                    
+                                }else{
+                                    $('.total_amount').html(0);
+                                    $('.total_price').html(0);
+                                    $('input:checkbox').prop('checked',false);
+                                } 
+                            }); 
+                            $('.del_all').click(function(){
+                                var arr=new Array();
+                                $('.hide').find('.check:checked').each(function(key,value){
+                                    arr[key] = $(this).attr('id');
+                                });
+                                $.ajax({                                          
+                                            type:"POST",
+                                            url:"del_all",
+                                            data:{
+                                                "arr":arr     
+                                            },
+                                            dataType:'json',                                          
+                                            success:function(ret) {  
+                                                location.reload();           
+                                            }
+                                        });
+                                
+                            }); 
+                            $('.btn').click(function(){
+                                var id = new Array();
+                                $('.hide').find('.check:checked').each(function(key,value){
+                                    id[key] = $(this).attr('id');
+                                });
+                                $.ajax({                                          
+                                            type:"POST",
+                                            url:"lookorder",
+                                            data:{
+                                                "id":id,
+                                            },
+                                            dataType:'json',
+                                            success:function(ret){
+                                                location.href=('lookOrderForm');
+                                            }                                          
+                                        });
+                            });     
+                        });                          
+                    </script>                   
+            <div class="common_handler_anchor"></div>
+            <div class="common_handler">
+                <div class="right_handler"> 共选 <span class="total_amount"> 0 </span> &nbsp;件商品 &nbsp;&nbsp; 商品应付总额：<span class="total_price">0</span> <a id="go_to_order" class="btn" href="javascript:void(0);">去结算</a> </div>
+                <label for="js_all_selector" class="cart_all_selector_wrapper all">
+                    <input id="js_all_selector" class="js_all_selector all_selector" type="checkbox" value="0"> 全选 </label> <a class="go_back_shopping" href="goodslist">继续购物</a> <span class="seperate_line">|</span> <a class="clear_cart_all del_all" href="javascript:void(0)">清空选中商品</a>
+            </div>  
+        </div>
+    </div>
+    <!-- 页尾链接和版权信息 -->
+    <div id="footer" class="">
+        <div class="footer_nav">
+            <a href="" target="_blank" rel="nofollow">公司简介</a>
+            <span class="sep">|</span>
+            <a href="" target="_blank">合作关系</a>
+            <span class="sep">|</span>
+            <a href="" target="_blank" rel="nofollow">诚征英才</a>
+            <span class="sep">|</span>
+            <a href="" target="_blank">网站联盟</a>
+            <span class="sep">|</span>
+            <a href="" target="_blank">广告服务</a>
+            <span class="sep">|</span>
+            <a href="" target="_blank">时代招商</a>
+            <span class="sep">|</span>
+            <a href="" target="_blank" rel="nofollow">机构销售</a>
+            <span class="sep">|</span>
+            <a href="" target="_blank">手机时代</a>
+            <span class="sep">|</span>
+            <a href="">官方Blog</a>
+        </div>
+        <p class="padt10 textc cor2 lh20">
+            <a class="disin padlr10" href="" target="_blank">巴黎shop</a>
+            <a class="disin padlr10" href="" target="_blank">当当网</a>
+            <a class="disin padlr10" href="" target="_blank">亚马逊</a>
+            <span class="dinin padlr5">|</span>
+            <a class="disin padlr10" href="">微博微信</a>
+            <a class="disin padlr10" href="">天猫旗舰店</a> 
+        </p>
+    </div>
+    <!-- /页尾链接和版权信息 -->
+</body>
+
+</html>

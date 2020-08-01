@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>巴黎shop</title>
+        <link href="/css/reset.css" rel="stylesheet" type="text/css" />
+        <link href="/css/page.css" rel="stylesheet" type="text/css" />
+        <link href="/css/detailPage.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="/js/jquery-2.1.0.js"></script>   
+    </head>
+    <body>
+        <!-- 顶部导航 -->
+        <div id="top">
+            <div class="wrap clear">
+                <div class="topRight fr clear">
+                    <ul class="leftNav fl">
+                        <li>
+                            <a class="padl10" title="查看购物车" name="购物车" href="shopping_car?name={$Think.session.name}">购物车</a>
+                            <span class="sep">|</span>
+                        </li>
+                        <li class="myOrder">
+                            <a title="查看我的订单" name="我的订单" href="lookOrderForm.html" target="_blank">我的订单</a>
+                            <i class="myLibIcon"></i>
+                            <span class="sep">|</span></li>
+                        </ul>
+                        <ul class="rightNav fr">
+                            <li class="myInformation"><a title="登录网站" href="login.html">个人中心</a><i class="myLibIcon"></i><span class="sep">|</span> </li>
+                            <li><a title="退出系统" name="退出" href="login.html">退出</a></li>
+                        </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /顶部导航 -->
+        <!-- logo与search区域 -->
+        <div id="logo_line" class="wrap clear">
+            <div class="logo fl">
+                <a href="index.html">
+                    <img src="/images/logo/logo7.png" alt="时代图书在线" title="欢迎进入当当图书在线">
+                </a>
+            </div>
+            <div class="search fr">
+                <form method="post" action="byPageShow.html">
+                    <input type="text" name="searchMess" autocomplete="on" class="text gray">
+                    <span class="select">
+                        <span id="Show_Category_Name">shop</span>
+                    <span class="icon"></span>
+                    </span>
+                    <input type="submit" name="g" value="搜索" class="button" title="点击我搜索吧！">
+                </form>
+              
+            </div>
+          
+        </div>
+        <!-- /logo与search区域 -->
+        <!-- 导航条 -->
+        <div id="navbar">
+            <div class="wrap clear">
+                <h3 class="navindex"><a href="index.html" title="shop">shop</a></h3>
+                <ul>
+                    <li><a class="current" title="进入书店主页" href="index.html">主页</a></li>                
+                    <li><a title="查看购物车" href="shopping_car?name={$Think.session.name}">查看购物车</a></li>
+                    <li class="loveclub">
+                        <a title="查看您的订单" href="lookOrderForm.html">查看订单
+                                <em class="white_arrow"></em>
+                        </a>
+                        <div class="loveclubtab">
+                            <a href="lookShoppingCar.html">一键购买</a>
+                            <a href="lookOrderForm.html">今日订单</a>
+                            <a href="lookOrderForm.html">历史订单</a>
+                        </div>
+                    </li>
+                </ul>
+                
+            </div>
+        </div>
+        <!-- /导航条 -->
+        <!-- 商品内容列表区域上部 -->
+        <div id="content" class="wrap clear">
+            <div class="userPosition wrap clear">
+                <a href="">首页</a>        
+            </div>
+            <div class="description clear">  
+                <div class="dleftArea fl">
+                    {foreach $goods as $v}
+                    {php} $images = explode(',',$v['image_ori']);{/php}
+                    <div class="topItem">
+                        <a href="javascript:void(0);">
+                            <img src="{$images[0]}" alt="" height="400" width="400">
+                        </a>
+                    </div>
+                    <ul class="thumb">
+                        {foreach $images as $img}
+                        <li class="tfirst">
+                            <a href="javascript:void(0);"><img src="{$img}" height="50" width="50" alt=""></a>                   
+                        </li>
+                        {/foreach}
+                    </ul>
+                    <div class="social">
+                        <ul class="clear">
+                            <li><a href="">收藏商品</a></li>
+                            <li><a href="">加入对比</a></li>
+                            <li class="attention"><b></b><a href="">关注商品</a></li>
+                            <li class="share"><b></b><a href="">分享</a></li>
+                        </ul>
+                    </div>
+                    {/foreach}
+                </div>
+                <div class="drightArea fl clear">
+                    <div class="itemInfo fl clear">
+                        <div id="name">
+                            {foreach $goods as $v}
+                            <h1>{$v.goods_name}</h1>
+                            {/foreach}
+                        </div>
+                        <div id="compare">
+                            <a href="#" id="comp_1279804" data-sku="1279804" class="J_contrast btn-compare selected btn-compare-s-active" clstag="shangpin|keycount|product|jiaruduibi">
+                                <span>对比</span>
+                            </a>
+                        </div>
+                        <div id="summary">
+                            <div id="comment-count" clstag="shangpin|keycount|product|1|pingjiabtn">
+                                <p class="comment">累计评价</p>
+                                <a class="count J-comm-1279804" href="#">11327</a>
+                            </div>
+                            <div id="summary-price">
+                                <div class="dt">折扣价：</div>
+                                <div class="dd">
+                                    {foreach $goods as $v}
+                                    <strong class="p-price" id="jd-price">{$v.goods_price}</strong>
+                                    {/foreach}
+                                    <a data-type="1" data-sku="1279804" id="notice-downp" class="J-notify-1" href="#" clstag="shangpin|keycount|product|1|jiangjia">(降价通知)</a>
+                                </div>
+                            </div>                           
+                        </div>
+                        <!-- 选择商品规格 -->
+                        <div id="parent_div" class="parent_div">
+                        {php}$i=0;{/php}
+                        {foreach $data as $d}
+                            {php}$i++;{/php}
+                        <div id="summary-service" clstag="shangpin|keycount|product|1|fuwu">
+                            <div class="dt">{$d.guige_name}：</div>                            
+                            <div class="dd">
+                                {foreach $val as $dd}
+                                {if $dd.guige_id==$d.id}
+                                <a href="javascript:void(0);" class="standard">{$dd.guige_value}</a>
+                                {/if}
+                                {/foreach} 
+                            </div>
+                        </div>
+                        {/foreach}
+                        </div>
+                        <!-- /选择商品规格 -->
+                        <!-- 购买数量 -->
+                        <dl class="amount dl clear">
+                            <dt class="property-type">数量：</dt>
+                            <dd>
+                                <span class="stock" id="J_Stock">
+                                        <a href="javascript:void(0);" class="jian reduce disable-reduce" data-spm-anchor-id="2013.1.20140002.5">-</a>
+                                        <input id="J_IptAmount" type="text" class="tb-text" name="amount" value="1" maxlength="8" title="请输入购买量">
+                                        <a href="javascript:void(0);" class="jia tb-increase J_Increase tb-iconfont" data-spm-anchor-id="2013.1.20140002.6">+</a>&nbsp;&nbsp;&nbsp;  件
+                                    </span>
+                                <em>(库存<span id="J_SpanStock" class="count"></span>件)</em>
+                            </dd>
+                        </dl>
+                        <!-- /购买数量 -->
+                        <script type="text/javascript">
+                            $(function(){  
+                            var guige=new Array();
+                            var num = $('.tb-text').val();
+                            $('.tfirst a').click(function(event){
+                                var img = $(this).children().attr('src');
+                                $('.topItem').children().children().attr('src',img);
+                            });
+                            $('.standard').click(function(event){
+                                var t = $(this).hasClass('select_border');
+                                if(t!=0){
+                                    $(this).removeClass('select_border');
+                                    $(this).parent().parent().removeClass('biaoji');
+
+                                }else{
+                                    $(this).addClass('select_border').siblings().removeClass('select_border');
+                                    $(this).parent().parent().addClass('biaoji');
+                                    $('.select_border').each(function(key, value) {
+                                    guige[key] = $(this).html();
+                                    
+                                    });
+                                    if($('.select_border').length=={$i}){
+                                        $.ajax({                                          
+                                            type:"POST",
+                                            url:"price?goods_id="+{$v.goods_id},
+                                            data:{
+                                                "guige":guige,
+                                            },
+                                            dataType:'json',                                          
+                                            success:function(data) {  
+                                                $('.p-price').html(data[0]['price']);
+                                                $('#J_SpanStock').html(data[0]['kucun']);
+                                                $('.topItem').children().children().attr('src',data[0]['image']);
+                                            }
+                                        })
+                                    }
+                                }
+                            });
+                            var t = $("#J_IptAmount");    
+                            $(".jia").click(function(){    
+                                t.val(parseInt(t.val())+1);    
+                                $(".jian").removeAttr("disabled");                 //当按加1时，解除$("#J_IptAmount")不可读状态    
+                                num = t.val();
+                            });    
+                            $(".jian").click(function(){    
+                                if (parseInt(t.val())>1) {                     //判断数量值大于1时才可以减少    
+                                    t.val(parseInt(t.val())-1) ;   
+                                }else{    
+                                    $(".jian").attr("disabled","disabled");    //当$("#J_IptAmount")为1时，$("#J_IptAmount")不可读状态    
+                                }    
+                                num = t.val();
+                            });                 
+                                $('.car').click(function(){
+                                    //获得被标记的div的个数
+                                    var len = $('.biaoji').length;
+                                    var image = $('.topItem').children().children().attr('src');
+                                    var price = $('.p-price').html();
+                                    //标记个数跟循环次数比较
+                                    if(len<{$i}){
+                                        $("#parent_div").addClass('parent_border');
+                                    }else{   
+                                        $("#parent_div").removeClass('parent_border');
+                                        $.ajax({                                          
+                                            type:"POST",
+                                            url:"add_car?goods_id="+{$v.goods_id},
+                                            data:{
+                                                "guige":guige,
+                                                "num":num,
+                                                "image":image,
+                                                "price":price,
+                                            },
+                                            dataType:'json',                                          
+                                            success:function(data) {   
+                                                alert('添加成功即将跳转到购物车界面');
+                                                location.href=('shopping_car?name='+data);              
+                                            }
+                                        })
+                                    }
+                                });
+                                $('.buy').click(function(){
+                                    //获得被标记的div的个数
+                                    var len = $('.biaoji').length;
+                                    var image = $('.topItem').children().children().attr('src');
+                                    var price = $('.p-price').html();
+                                    //标记个数跟循环次数比较
+                                    if(len<{$i}){
+                                        $("#parent_div").addClass('parent_border');
+                                    }else{   
+                                        $("#parent_div").removeClass('parent_border');
+                                        $.ajax({                                          
+                                            type:"POST",
+                                            url:"buy",
+                                            data:{
+                                                "guige":guige,
+                                                "num":num,
+                                                "image":image,
+                                                "price":price,
+                                            },
+                                            dataType:'json',                                          
+                                            success:function(data) {   
+                                                location.href=('lookOrderForm?goods_id='+{$v.goods_id});              
+                                            }
+                                        })
+                                    }
+                                });
+                                $('.pingjia').click(function(){
+                                    $('.big').hide();
+                                });
+                                $('.jieshao').click(function(){
+                                    $('.big').show();
+                                });
+                            });
+                        </script>
+                        <!-- 立即购买，放入购物车 -->
+                        <div id="J_juValid" class="action clear">
+                            <div class="btn-buy fl">
+                                <a href="javascript:void(0);" data-addfastbuy="true" title="点击此按钮，到下一步确认购买信息" class="J_LinkBuy buy" data-spm-click="gostr=/tbdetail;locaid=d1" shortcut-key="b" shortcut-label="立即购买" shortcut-effect="click" data-spm-anchor-id="2013.1.20140002.d1">立即购买</a>
+                            </div>
+                            <div class="btn-add fl">
+                                <a href="javascript:void(0);" title="加入购物车" class="J_LinkAdd car" data-spm-click="gostr=/tbdetail;locaid=d2" shortcut-key="a" shortcut-label="加入购物车" shortcut-effect="click" data-spm-anchor-id="2013.1.20140002.9"><i class="iconfont"></i>加入购物车</a>
+                            </div>
+                        </div>
+                        <!-- /立即购买，放入购物车 -->
+                        <div class="dl">
+                            <dl class="mod_detailInfor_ensure clear">
+                                <dt class="dt">保&nbsp;&nbsp;&nbsp; 障</dt>
+                                <dd class="dd clear">
+                                    <div class="payment" id="payment">
+                                        <a href="javascript:void(0);" class="paybtn">支付方式
+                                            <span class="iconDetail"></span>
+                                            </a>
+                                    </div>
+                                    <div id="payServiceList">
+                                        <a href="">正品保障</a>
+                                        <a title="假一赔三" href="" target="_blank">假一赔三</a>
+                                    </div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="dadd fr" id="r_mod">
+                        <div class="mod_change" id="r_mod_change">
+                            <div class="cha_t">{$v.shop_name}
+                                <a href="javascript:void(0);" id="r_cha_t">
+                                    <span class="iconDetail"></span>换一批
+                                </a>
+                            </div>
+                            <ul class="seeclip_list clear">
+                                {foreach $tupian as $t}
+                                    <li>
+                                        <a href=""><img src="{$t.image_ori}">{$t.goods_name}</a>
+                                        <p style="color:red;">{$t.goods_price}</p>
+                                    </li>
+                                {/foreach}
+                            </ul>
+                            <p class="see_more">
+                                <a href="http://shop.yhd.com/m-3941.html" target="_blank" onclick="addTrackPositionToCookie(1,'detail_fpage_seemore_goshop')">去店铺逛逛
+                                    <span class="iconDetail"></span>
+                                </a>
+                            </p>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </div>
+        <!-- /商品内容列表区域上部 -->
+        <!-- 商品详细说明下部 -->
+        <div id="detail" class="wrap clear">
+            <div id="detailLeft" class="fl">
+                <h3>看了还看</h3>
+                <ul class="seeclip_list clear">
+                    {foreach $haikan as $h}
+                        <li>
+                            <a href=""><img src="{$h.image_ori}">{$h.goods_name}</a>
+                            <p style="color:red;">{$h.goods_price}</p>
+                        </li>
+                    {/foreach}
+                </ul> 
+            </div>
+            <div id="detailRight" class="fr">
+                <ul class="des_tab">
+                    <li class="des_tabbox" id="detail_desc_tab">
+                        <a href="javascript:void(0)" tabindex="0" class="tab cur jieshao">商品介绍</a>
+                        <a href="javascript:void(0)" class="tab pingjia" id="desc_sppj" tabindex="-100">评价&nbsp;<em>3</em></a>
+                        <a tabindex="1" href="javascript:void(0)" class="tab">规格及包装</a>
+                        <a tabindex="3" href="javascript:void(0)" class="tab">售后服务</a><a href="javascript:void(0)" id="desc_spwd" class="tab" tabindex="-101">商品问答</a>
+                    </li>
+                </ul>
+
+                <div class="big">
+                <div class="goodStandard clear">
+                    <h4>规格参数</h4>
+                    <ul>
+                        <li>国家：中国大陆</li>
+                        <li>产地：中国北京</li>
+                        <li>出版社：中国教育出版社</li>
+                        <li>书名：HTML5与CSS3权威指南</li>
+                    </ul>
+                    <ul>
+                        <li>作者：陆凌牛</li>
+                        <li>版本：2014年11月第2版</li>
+                        <li>出版时间：2014年2月</li>
+                        <li>页数：466页</li>
+                    </ul>
+                    <ul>
+                        <li>图书编号：1770796886</li>
+                        <li>图书分类：前端科技</li>
+                        <li>是否为套装：是</li>
+                        <li>样式：黑白印刷</li>
+                    </ul>
+                </div>
+                <div class="des_img">
+                    <img src="/images/detail/css01.jpg" height="240" width="790">
+                    <img src="/images/detail/css02.png">
+                    <div class="hr40"></div>
+                    <div>
+                        <img height="60" width="750" style="margin-top: 10.0px;" src="/images/detail/css03.jpg">
+                    </div>
+                    <table width="750" cellspacing="0" cellpadding="0" border="0" style="line-height: 23.0px;font-size: 14.0px;color: #666666;margin-top: 10.0px;border: solid 1.0px #cccccc;border-width: 1.0px 0 0 1.0px;">
+                        <tbody>
+                            <tr>
+                                <td width="119" bgcolor="#FBFBFB" align="right" style="border: solid 1.0px #cccccc;border-width: 0 1.0px 1.0px 0;">&nbsp;书名：</td>
+                                <td width="628" style="border: solid 1.0px #cccccc;border-width: 0 1.0px 1.0px 0;">&nbsp;【正版】图解CSS3：核心技术与案例实战|63768</td>
+                            </tr>
+                            <tr>
+                                <td width="119" bgcolor="#FBFBFB" align="right" style="border: solid 1.0px #cccccc;border-width: 0 1.0px 1.0px 0;">&nbsp;图书定价：</td>
+                                <td width="628" style="border: solid 1.0px #cccccc;border-width: 0 1.0px 1.0px 0;">&nbsp;79元</td>
+                            </tr>
+                            <tr>
+                                <td width="119" bgcolor="#FBFBFB" align="right" style="border: solid 1.0px #cccccc;border-width: 0 1.0px 1.0px 0;">&nbsp;图书作者：</td>
+                                <td width="628" style="border: solid 1.0px #cccccc;border-width: 0 1.0px 1.0px 0;">&nbsp;大漠</td>
+                            </tr>
+                            <tr>
+                                <td width="119" bgcolor="#FBFBFB" align="right" style="border: solid 1.0px #cccccc;border-width: 0 1.0px 1.0px 0;">&nbsp;出版社：</td>
+                                <td width="628" style="border: solid 1.0px #cccccc;border-width: 0 1.0px 1.0px 0;">&nbsp;机械工业出版社</td>
+                            </tr>
+                            <tr>
+                                <td width="119" bgcolor="#FBFBFB" align="right" style="border: solid 1.0px #cccccc;border-width: 0 1.0px 1.0px 0;">&nbsp;出版日期：</td>
+                                <td width="628" style="border: solid 1.0px #cccccc;border-width: 0 1.0px 1.0px 0;">&nbsp;2014/7/1 0:00:00</td>
+                            </tr>
+                            <tr>
+                                <td width="119" bgcolor="#FBFBFB" align="right" style="border: solid 1.0px #cccccc;border-width: 0 1.0px 1.0px 0;">&nbsp;ISBN号：</td>
+                                <td width="628" style="border: solid 1.0px #cccccc;border-width: 0 1.0px 1.0px 0;">&nbsp;9787111469209</td>
+                            </tr>
+                            <tr>
+                                <td width="119" bgcolor="#FBFBFB" align="right" style="border: solid 1.0px #cccccc;border-width: 0 1.0px 1.0px 0;">&nbsp;开本：</td>
+                                <td style="border: solid 1.0px #cccccc;border-width: 0 1.0px 1.0px 0;">16开</td>
+                            </tr>
+                            <tr>
+                                <td width="119" bgcolor="#FBFBFB" align="right" style="border: solid 1.0px #cccccc;border-width: 0 1.0px 1.0px 0;">&nbsp;页数：</td>
+                                <td style="border: solid 1.0px #cccccc;border-width: 0 1.0px 1.0px 0;">486</td>
+                            </tr>
+                            <tr>
+                                <td width="119" bgcolor="#FBFBFB" align="right" style="border: solid 1.0px #cccccc;border-width: 0 1.0px 1.0px 0;">&nbsp;版次：</td>
+                                <td style="border: solid 1.0px #cccccc;border-width: 0 1.0px 1.0px 0;">1-1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table width="750" cellspacing="0" cellpadding="0" border="0" style="border: 1.0px solid #cccccc;margin-top: 10.0px;line-height: 23.0px;font-size: 14.0px;color: #666666;">
+                        <tbody>
+                            <tr>
+                                <td style="border-bottom: 1.0px dashed #cccccc;background-color: #fbfbfb;font-weight: bold;color: #990000;">&nbsp;作者简介</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10.0px;">廖伟华(网名：大漠)，资深Web前端工程师，W3cplus(http：／／www．w3cplus．com)创始人，目前就职于Ctrip UED。中国Drupal社区核心成员之一。对HTML5、CSS3、XHTML和Sass等前端脚本语言有非常深入的认识和丰富的实践经验，尤其专注对CSS3的研究，是国内最早研究和使用CSS3技术的一批人。现在还关注Web产品策划、交互设计、SEO以及移动端开发。2012年4月刊的《程序员》杂志上发表文章“Twitter Bootstrap：前端框架利器”。</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table width="750" cellspacing="0" cellpadding="0" border="0" style="border: 1.0px solid #cccccc;margin-top: 10.0px;line-height: 23.0px;font-size: 14.0px;color: #666666;">
+                        <tbody>
+                            <tr>
+                                <td style="border-bottom: 1.0px dashed #cccccc;background-color: #fbfbfb;font-weight: bold;color: #990000;">&nbsp;内容简介</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10.0px;">《图解CSS3：核心技术与案例实战》是国内著名的Web前端专家历时两载的心血之作，根据最新的CSS3撰写，融入了作者在CSS领域近10年的使用经验，旨在将本书打造成为CSS3领域最权威和实用的专业著作，供没有经验的读者系统学习，供有经验的读者参考备查。
+                                    <br>《图解CSS3：核心技术与案例实战》理论知识系统全面，详细讲解了选择器、边框、背景、文本、颜色、盒模型、伸缩布局盒模型、多列布局、渐变、过渡、动画、媒体、响应Web设计、Web字体等主题下涵盖的所有CSS3新特性，所有这些都巧妙地融入到案例中，而不是纯粹枯燥的理论讲解；讲解方式直观易懂，以图解的方式巧妙地展示了这些新特性；实战性强，既为每个知识点精心设计了小案例，也有综合性的大案例，所有案例都非常详尽，有功能需求分析、设计思路和完整代码，还有最终的效果展示。</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+            </div>
+        </div>
+        <!-- /商品详细说明下部 -->
+        <!-- 页尾链接和版权信息 -->
+        <div id="footer" class="">
+            <div class="footer_nav">
+                <a href="" target="_blank" rel="nofollow">公司简介</a>
+                <span class="sep">|</span>
+                <a href="" target="_blank">合作关系</a>
+                <span class="sep">|</span>
+                <a href="" target="_blank" rel="nofollow">诚征英才</a>
+                <span class="sep">|</span>
+                <a href="" target="_blank">网站联盟</a>
+                <span class="sep">|</span>
+                <a href="" target="_blank">广告服务</a>
+                <span class="sep">|</span>
+                <a href="" target="_blank">时代招商</a>
+                <span class="sep">|</span>
+                <a href="" target="_blank" rel="nofollow">机构销售</a>
+                <span class="sep">|</span>
+                <a href="" target="_blank">手机时代</a>
+                <span class="sep">|</span>
+                <a href="">官方Blog</a>
+            </div>
+            <p class="padt10 textc cor2 lh20">
+                <a class="disin padlr10" href="" target="_blank">巴黎shop</a>
+                <a class="disin padlr10" href="" target="_blank">当当网</a>
+                <a class="disin padlr10" href="" target="_blank">亚马逊</a>
+                <span class="dinin padlr5">|</span>
+                <a class="disin padlr10" href="">微博微信</a>
+                <a class="disin padlr10" href="">天猫旗舰店</a>
+               
+                <a class="disin padlr10" href="" target="_blank">电子商务 kay chen</a>
+            </p>
+        </div>
+        <!-- /页尾链接和版权信息 -->
+        
+    </body>
+
+</html>
+

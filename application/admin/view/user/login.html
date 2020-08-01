@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>巴黎后台注册登录</title>
+		<link href="/css/GDS.css" type="text/css" rel="stylesheet"/>
+		<script type="text/javascript" src="/js/jquery-2.1.0.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				$("button").hover(function() {
+					$(this).addClass('color');
+				},function() {
+					$(this).removeClass('color');
+				});
+			    
+			})
+		</script>
+	</head>
+	<body>
+	    <div class="bgi">
+	    	
+	    </div>
+	    <div id="login">   
+           <h1>巴黎Login</h1>   
+                <form method="post" action="check" autocomplete="off">   
+                    <input type="text"  placeholder="手机号/邮箱" required="required" name="user_name"> </input>
+            		<input type="password"  placeholder="密码" required="required" name="password"> </input><br />  
+            		<input class="check" type="text"  placeholder="验证码" name="code"></input><div class="captchadiv"><img width="120px" height="40px" alt="验证码"  src="{:captcha_src()}" onclick="this.src=this.src+'?'"/></div> <br />
+            		<tr>
+            			<td><button class="but1" type="submit">登录</button>   </td>
+            		    <td><a href="register">注册</a> </td>
+            		    <td><a href="change"> 忘记密码</a></td>
+            	    </tr>
+        		</form>   
+        </div>  
+
+	
+	</body>
+</html>

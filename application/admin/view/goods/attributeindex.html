@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>shop</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+		<!-- <link rel="stylesheet" type="text/css" href="css/dierye.css"/> -->
+        <link href="/css/bootstrap.css" rel='stylesheet' type='text/css' />
+        <link href="/css/style.css" rel='stylesheet' type='text/css' />
+        <script src="/js/jquery.min.js"></script>
+        <!---- start-smoth-scrolling---->
+        <script type="text/javascript" src="/js/move-top.js"></script>
+        <script type="text/javascript" src="/js/easing.js"></script>
+        <script type="text/javascript">
+            jQuery(document).ready(function($) {
+                $(".scroll").click(function(event){     
+                    event.preventDefault();
+                    $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+                });
+            });
+            $(function() {
+                $("button").hover(function() {
+                    $(this).addClass('color');
+                },function() {
+                    $(this).removeClass('color');
+                });
+                $(".navig li:eq(4)").mouseenter(function(){
+                    $(".shopbox").css('display','block');
+               
+                });
+                $(".father").mouseleave(function(){
+                    $(".shopbox").css('display','none');
+               
+                });
+                $(".myselect").change(function(){
+                	var p1=$(this).children('option:selected').val();
+                	window.location.href="attributeindex?type_id="+p1;
+                })
+               
+            })
+
+        </script>
+<!--start-smoth-scrolling-->
+	</head>
+	<body>
+	
+    <!--start-header-->
+    <div class="father">
+    <div class="header">
+        <div class="container">
+            <div class="head">
+            <div class="navigation">
+                 <span class="menu"></span> 
+                    <ul class="navig">
+                        <li><a href="index">主页</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="shop">店铺管理</a></li>
+                        <li><a href="car">购物车管理</a></li>
+                        <li><a href="#" class="active">商品管理</a></li>
+                        <li><a href="logout">退出登录</a></li>
+                    </ul>
+            </div>
+            <div class="header-right">
+                <div class="search-bar">
+                    <input type="text" value="Search" onFocus="this.value = '';" onBlur="if (this.value == '') {this.value = 'Search';}">
+                    <input type="submit" value="">
+                </div>
+                <ul>
+                    <li><a href="#"><span class="fb"> </span></a></li>
+                    <li><a href="#"><span class="twit"> </span></a></li>
+                    <li><a href="#"><span class="pin"> </span></a></li>
+                    <li><a href="#"><span class="rss"> </span></a></li>
+                    <li><a href="#"><span class="drbl"> </span></a></li>
+                </ul>
+            </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div>按商品类型显示：
+        	<select class="myselect"><?php foreach($types as $type) : ?>
+                	<option value="<?php echo $type['type_id'];?>" {$type['type_id']==$data ? "selected='selected'" :""}>
+                		<?php echo $type['type_name'];?></option>
+                	<?php endforeach;?>
+        		
+        	</select>
+
+        </div>
+        <a href="addguigename" class="addtype">添加规格名</a>
+    </div>  
+    <div class="shopbox">
+        <ul>
+            <li><a href="goodslist">商品展示</a></li>
+            <li><a href="catlist">商品分类</a></li>
+            <li><a href="typelist">商品类型</a></li>
+        </ul>
+    </div>
+    </div>
+    <div class="attributeindex">
+    	<table  align="center" class="table table-bordered table-hover table-striped">
+    		<thead>
+    			<tr>    			
+    				<th>规格名称</th>
+    				<th>规格值</th>
+    				<th>操作</th>
+    			</tr>
+    		</thead>
+            <tbody>
+            	<?php foreach ($attrs as $v) :?>
+            	<tr>
+            		<td align="center"><?php echo $v['guige_name'];?></td>            	          	
+            		<td align="center"><?php echo $v['guige_value'];?></td>
+            		<td align="center">
+            			<a href="attr_del?id=<?php echo $v['id'];?>" onclick="javascript:return confirm('您确定删除此条记录吗？');">删除</a>
+            		</td>	
+            	</tr>
+            	<?php endforeach;?>
+            </tbody>
+    	</table>
+    	<div align="center" class="fenye">{$attrs->render()}</div>	
+    </div>
+	</body>
+</html>

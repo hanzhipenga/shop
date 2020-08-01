@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>购买结果反馈</title>
+        <link href="/css/page.css" rel="stylesheet" type="text/css" />
+        <link href="/css/reset.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="/js/jquery-2.1.0.js"></script>
+        <script type="text/javascript">
+            $(function(){
+                var vNow = new Date();
+                var sNow = "";
+                sNow += String(vNow.getFullYear());
+                sNow += String(vNow.getMonth() + 1);
+                sNow += String(vNow.getDate());
+                sNow += String(vNow.getHours());
+                sNow += String(vNow.getMinutes());
+                sNow += String(vNow.getSeconds());
+                sNow += String(vNow.getMilliseconds());
+                
+                $('.hao_p').html(sNow);
+            });
+        </script>
+    </head>
+
+    <body>
+        <!-- 顶部导航 -->
+        <div id="top">
+            <div class="car_wrap clear">
+                <div class="topRight fr clear">
+                    <ul class="leftNav fl">
+                        <li>
+                            <a class="padl10" title="查看购物车" name="购物车" href="lookShoppingCar.html">购物车</a>
+                            <span class="sep">|</span>
+                        </li>
+                        <li class="myOrder">
+                            <a title="查看我的订单" name="我的订单" href="lookOrderForm.html" target="_blank">我的订单</a><i class="myLibIcon"></i>
+                            <span class="sep">|</span></li>
+                       
+                        </ul>
+                        <ul class="rightNav fr">
+                            <li class="myInformation"><a title="登录网站" href="login.html">个人中心</a><i class="myLibIcon"></i><span class="sep">|</span> </li>
+                            <li><a title="退出系统" name="退出" href="login.html">退出</a></li>
+                        </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /顶部导航 -->
+        <!-- logo与进度反馈区域 -->
+        <div id="logo_line" class="car_wrap clear">
+            <div class="logo fl">
+                <a href="index.html">
+                    <img src="/images/logo/logo7.png" alt="时代图书在线" title="欢迎进入当当图书在线">
+                </a>
+            </div>
+            <div class="shopCar_tit fl">
+                <h1>订单详情</h1>
+            </div>
+            <div class="order_path order_path_3 ">
+            </div>
+        </div>
+        <div class="car_hr"></div>
+        <!-- /logo与进度反馈区域 -->
+        <!-- 购买结果反馈 -->
+        <div class="backInfo car_wrap">
+            <p class="info">您已经付款成功，我们会及时安排工作人员确认订单，以便快速给您发货! <a href="index.html"> 返回首页，再看看&gt;&gt;</a></p>
+            <div class="danhao" >订单号：<p class="hao_p" style="display: inline-block;color: blue;"></p> </div>
+        </div>
+        <div id="footer" class="clear">
+            <p class="padt10 textc cor2 lh20">
+                <a class="disin padlr10" href="" target="_blank">巴黎shop</a>
+                <a class="disin padlr10" href="" target="_blank">当当网</a>
+                <a class="disin padlr10" href="" target="_blank">亚马逊</a>
+                <span class="dinin padlr20">|</span>
+                <a class="disin padlr10" href="">微博微信</a>
+                <a class="disin padlr10" href="">天猫旗舰店</a> 
+            </p>  
+        </div>
+    </body>
+</html>

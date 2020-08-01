@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>shop</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+		<!-- <link rel="stylesheet" type="text/css" href="css/dierye.css"/> -->
+        <link href="/css/bootstrap.css" rel='stylesheet' type='text/css' />
+        <link href="/css/style.css" rel='stylesheet' type='text/css' />
+        <script src="/js/jquery.min.js"></script>
+        <!---- start-smoth-scrolling---->
+        <script type="text/javascript" src="/js/move-top.js"></script>
+        <script type="text/javascript" src="/js/easing.js"></script>
+        <script type="text/javascript">
+            jQuery(document).ready(function($) {
+                $(".scroll").click(function(event){     
+                    event.preventDefault();
+                    $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+                });
+            });
+            $(function() {
+                $("button").hover(function() {
+                    $(this).addClass('color');
+                },function() {
+                    $(this).removeClass('color');
+                });
+                $(".navig li:eq(4)").mouseenter(function(){
+                    $(".shopbox").css('display','block');
+               
+                });
+                $(".father").mouseleave(function(){
+                    $(".shopbox").css('display','none');
+               
+                });
+            })
+        </script>
+<!--start-smoth-scrolling-->
+	</head>
+	<body>
+	
+	
+    <!--start-header-->
+    <div class="father">
+    <div class="header">
+        <div class="container">
+            <div class="head">
+            <div class="navigation">
+                 <span class="menu"></span> 
+                    <ul class="navig">
+                        <li><a href="index">主页</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="shop">店铺管理</a></li>
+                        <li><a href="car">购物车管理</a></li>
+                        <li><a href="#" class="active">商品管理</a></li>
+                        <li><a href="logout">退出登录</a></li>
+                    </ul>
+            </div>
+            <div class="header-right">
+                <div class="search-bar">
+                    <input type="text" value="Search" onFocus="this.value = '';" onBlur="if (this.value == '') {this.value = 'Search';}">
+                    <input type="submit" value="">
+                </div>
+                <ul>
+                    <li><a href="#"><span class="fb"> </span></a></li>
+                    <li><a href="#"><span class="twit"> </span></a></li>
+                    <li><a href="#"><span class="pin"> </span></a></li>
+                    <li><a href="#"><span class="rss"> </span></a></li>
+                    <li><a href="#"><span class="drbl"> </span></a></li>
+                </ul>
+            </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <a href="addgoods" class="addtype">添加商品</a>
+    </div>  
+    <div class="shopbox">
+        <ul>
+            <li><a href="goodslist">商品展示</a></li>
+            <li><a href="catlist">商品分类</a></li>
+            <li><a href="typelist">商品类型</a></li>
+        </ul>
+    </div>
+    </div>
+    <div class="show_goods">
+    	<div class="team">
+		<div class="container">
+		<div class="team-top heading">
+			<h3>商品展示</h3>
+		</div>
+			<div class="team-bottom">
+				{foreach $goods as $v}
+                {php} $images = explode(',',$v['image_ori']);{/php}
+				<div class="col-md-3 team-left">
+					<a href="addgoodattr?goods_id={$v.goods_id}"><img style="height: 170px; width: 255px;" src="{$images[0]}"/></a>
+					<h4>{$v.goods_name}</h4>
+					<ul>
+						<li>商品价格：</li>
+						<li>{$v.goods_price}</li>
+					</ul>
+					<ul>
+						<li>上架状态：</li>
+						<li><?php echo $v['up_goods']==1 ? "✔" : "✖" ;?></li>
+					</ul>
+					<ul>
+						<li>推荐状态：</li>
+						<li>{$v.goods_promote}</li>
+					</ul>
+				</div>
+				{/foreach}
+			</div>
+		</div>
+	</div>
+    	<div align="center">{$goods->render()}</div>
+		
+    </div>
+	</body>
+</html>

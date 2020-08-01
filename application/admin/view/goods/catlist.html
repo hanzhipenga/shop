@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>shop</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+		<!-- <link rel="stylesheet" type="text/css" href="css/dierye.css"/> -->
+        <link href="/css/bootstrap.css" rel='stylesheet' type='text/css' />
+        <link href="/css/style.css" rel='stylesheet' type='text/css' />
+        <script src="/js/jquery.min.js"></script>
+        <!---- start-smoth-scrolling---->
+        <script type="text/javascript" src="/js/move-top.js"></script>
+        <script type="text/javascript" src="/js/easing.js"></script>
+        <script type="text/javascript">
+            jQuery(document).ready(function($) {
+                $(".scroll").click(function(event){     
+                    event.preventDefault();
+                    $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+                });
+            });
+            $(function() {
+                $("button").hover(function() {
+                    $(this).addClass('color');
+                },function() {
+                    $(this).removeClass('color');
+                });
+                $(".navig li:eq(4)").mouseenter(function(){
+                    $(".shopbox").css('display','block');
+               
+                });
+                $(".father").mouseleave(function(){
+                    $(".shopbox").css('display','none');
+               
+                });
+                
+            })
+            function expend(el){           
+                    if($("#show_son"+el).hasClass('close_son')){
+                        $("#show_son"+el).removeClass('close_son');
+                        $("#color_c"+el).removeClass('close_color');
+                        $("#son"+el).css('display','none');
+                   }else{
+                        $("#show_son"+el).addClass('close_son');
+                        $("#color_c"+el).addClass('close_color');
+                        $("#son"+el).css('display','block');
+                   }
+                }
+        </script>
+<!--start-smoth-scrolling-->
+	</head>
+	<body>
+    <!--start-header-->
+    <div class="father">
+    <div class="header">
+        <div class="container">
+            <div class="head">
+            <div class="navigation">
+                 <span class="menu"></span> 
+                    <ul class="navig">
+                        <li><a href="index">主页</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="shop">店铺管理</a></li>                        
+                        <li><a href="car">购物车管理</a></li>
+                        <li><a href="#" class="active">商品管理</a></li>
+                        <li><a href="logout">退出登录</a></li>
+                    </ul>
+            </div>
+            <div class="header-right">
+                <div class="search-bar">
+                    <input type="text" value="Search" onFocus="this.value = '';" onBlur="if (this.value == '') {this.value = 'Search';}">
+                    <input type="submit" value="">
+                </div>
+                <ul>
+                    <li><a href="#"><span class="fb"> </span></a></li>
+                    <li><a href="#"><span class="twit"> </span></a></li>
+                    <li><a href="#"><span class="pin"> </span></a></li>
+                    <li><a href="#"><span class="rss"> </span></a></li>
+                    <li><a href="#"><span class="drbl"> </span></a></li>
+                </ul>
+            </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <a href="addcat" class="addcat">添加分类</a>
+
+    </div>  
+    <div class="shopbox">
+        <ul>
+            <li><a href="goodslist">商品展示</a></li>
+            <li><a href="catlist">商品分类</a></li>
+            <li><a href="typelist">商品类型</a></li>
+        </ul>
+    </div>
+    </div>
+    <div class="show_cat">         	
+    			<ul>			
+    				<li>分类名称</li>
+                    <li>是否显示</li>
+                    <li>几级分类</li>
+                    <li>操作</li>
+    			</ul>        	                                
+                {foreach $parent as $v}                    
+            	<ul>
+            		<li>1-{$v.cat_name}<div class="show_son" id="show_son{$v.cat_id}" onclick="expend({$v.cat_id})"><div class="show_color" id="color_c{$v.cat_id}"></div></div></li>       	     	
+            		<li>{$v.is_show==1 ? "✔" : "✖" }</li>
+            		<li>{$v.sort_order}</li>
+            		<li>
+            			<a href="edit?cat_id={$v.cat_id}">编辑</a>
+            			<a href="delete?cat_id={$v.cat_id}" onclick="javascript:return confirm('您确定删除此条记录吗？');">删除</a>
+            		</li>
+            	</ul>            
+            <ul id="son{$v.cat_id}" class="son">                    
+            {foreach $er as $vv} 
+                {if $vv.pid == $v.cat_id}                                            
+                    <li>{php} echo str_repeat('&nbsp;&nbsp;',$vv['sort_order']) {/php} 2-{$vv.cat_name}</li>                    
+                    <li>{$vv.is_show==1 ? "✔" : "✖" }</li>
+                    <li>{$vv.sort_order}</li>
+                    <li>
+                        <a href="cat_attr?cat_id={$vv.cat_id}" class="addcat">添加分类属性</a>
+                        <a href="edit?cat_id={$vv.cat_id}">编辑</a>
+                        <a href="delete?cat_id={$vv.cat_id}" onclick="javascript:return confirm('您确定删除此条记录吗？');">删除</a>
+                    </li>   
+                    {foreach $son as $s}  
+                        {if $s.pid == $vv.cat_id}
+                            <li>{php} echo str_repeat('&nbsp;&nbsp;',$s['sort_order']) {/php} {$s.cat_name}</li>             
+                            <li>{$s.is_show==1 ? "✔" : "✖" }</li>
+                            <li>{$s.sort_order}</li>
+                            <li>
+                                <a href="cat_attr?cat_id={$s.cat_id}" class="addcat">添加分类属性</a>
+                                <a href="edit?cat_id={$s.cat_id}">编辑</a>
+                                <a href="delete?cat_id={$s.cat_id}" onclick="javascript:return confirm('您确定删除此条记录吗？');">删除</a>
+                            </li>
+                        {/if}
+                    {/foreach}      
+                {/if}  
+            {/foreach}                  
+            </ul>
+        {/foreach}    		
+    </div>     
+	</body>
+</html>

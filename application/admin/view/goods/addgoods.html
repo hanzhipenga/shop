@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>shop</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+		<!-- <link rel="stylesheet" type="text/css" href="css/dierye.css"/> -->
+        <link href="/css/bootstrap.css" rel='stylesheet' type='text/css' />
+        <link href="/css/style.css" rel='stylesheet' type='text/css' />
+        <script src="/js/jquery.min.js"></script>
+        <!---- start-smoth-scrolling---->
+        <script type="text/javascript" src="/js/move-top.js"></script>
+        <script type="text/javascript" src="/js/easing.js"></script>
+        <script type="text/javascript">
+            jQuery(document).ready(function($) {
+                $(".scroll").click(function(event){     
+                    event.preventDefault();
+                    $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+                });
+            });
+            $(function() {
+                var i=2;
+                $("button").hover(function() {
+                    $(this).addClass('color');
+                },function() {
+                    $(this).removeClass('color');
+                });
+                $(".navig li:eq(4)").mouseenter(function(){
+                    $(".shopbox").css('display','block');
+               
+                });
+                $(".father").mouseleave(function(){
+                    $(".shopbox").css('display','none');
+               
+                });
+                $('.jia_a').click(function(){
+                    if(i<=6){
+                    var rowtem = '<tr>'+'<td></td>'+'<td><input type="file" name="image_ori[]"/></td>'+'</tr>'+'<br>';
+                    $('table tr').eq(i).after(rowtem);
+                    i++;
+                    }else{
+                        alert("最多提交六个图片");
+                    } 
+                });
+            });
+        </script>
+<!--start-smoth-scrolling-->
+	</head>
+	<body>
+    <!--start-header-->
+    <div class="father">
+    <div class="header">
+        <div class="container">
+            <div class="head">
+            <div class="navigation">
+                 <span class="menu"></span> 
+                    <ul class="navig">
+                        <li><a href="index">主页</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="shop">店铺管理</a></li>
+                        <li><a href="car">购物车管理</a></li>
+                        <li><a href="#" class="active">商品管理</a></li>
+                        <li><a href="logout">退出登录</a></li>
+                    </ul>
+            </div>
+            <div class="header-right">
+                <div class="search-bar">
+                    <input type="text" value="Search" onFocus="this.value = '';" onBlur="if (this.value == '') {this.value = 'Search';}">
+                    <input type="submit" value="">
+                </div>
+                <ul>
+                    <li><a href="#"><span class="fb"> </span></a></li>
+                    <li><a href="#"><span class="twit"> </span></a></li>
+                    <li><a href="#"><span class="pin"> </span></a></li>
+                    <li><a href="#"><span class="rss"> </span></a></li>
+                    <li><a href="#"><span class="drbl"> </span></a></li>
+                </ul>
+            </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>  
+    <div class="shopbox">
+        <ul>
+            <li><a href="goodslist">商品展示</a></li>
+            <li><a href="catlist">商品分类</a></li>
+            <li><a href="typelist">商品类型</a></li>
+        </ul>
+    </div>
+    </div>
+        <div class="goods">
+		<form method="post" action="goods_add" enctype="multipart/form-data" autocomplete="off" class="form1">      
+        <table align="center" height="400px">
+            <tr>
+                <td>商品名称：</td>
+                <td><input type="text" required="required"  name="goods_name"/> </td>
+
+            </tr><br />
+            <tr>
+                <td>本店售价：</td>        
+                <td><input type="text" required="required" name="goods_price"/></td>
+            </tr>  <br />
+            <tr>
+                <td>上传商品图片：</td>        
+                <td>
+                    <input type="file" name="image_ori[]"/>
+                </td>
+            </tr>
+            <br />
+            <tr>
+                <td>商品分类：</td>        
+                <td><select name="cat_id">
+                    <option value="0">顶级分类</option>
+                    {foreach $data as $v} 
+                    <option value="{$v.cat_id}">
+                        <?php echo str_repeat("-", $v['level'])?>
+                        {$v.cat_name}</option>
+                    {/foreach}
+                </select></td>
+            </tr>
+            <tr>
+                <td>所属店铺：</td>        
+                <td><select name="shop_id">
+                    <option>请选择店铺</option>
+                    {foreach $shop as $shop} 
+                    <option value="{$shop.shop_id}">
+                        {$shop.shop_name}</option>
+                    {/foreach}
+                </select></td>
+            </tr>
+            <tr>
+                <td>所属类型：</td>        
+                <td><select name="type_id">
+                    <option>请选择类型</option>
+                    {foreach $type as $t} 
+                    <option value="{$t.type_id}">
+                        {$t.type_name}</option>
+                    {/foreach}
+                </select></td>
+            </tr>
+            <tr>
+                <td>详细描述：</td>        
+                <td><textarea name="goods_desc" class="form-control" rows="3"></textarea> </td>
+            </tr><br />
+            <tr>
+                <td>上架：</td>        
+                <td> <input type="checkbox" value="1" name="up_goods"/>打勾表示允许销售，否则不允许</td>
+            </tr><br />
+            <tr>
+                <td>加入推荐：</td>        
+                <td><input type="checkbox" value="精品" name="goods_promote[]"/>精品   
+                    <input type="checkbox" value="新品" name="goods_promote[]"/>新品   
+                    <input type="checkbox" value="热销" name="goods_promote[]"/>热销    </td>
+            </tr><br />             
+        </table>
+        <button class="button1" type="submit">提交</button>   
+        <button class="button2" type="reset" name="reset">重置</button> 
+        </form> 
+            <div class="jia">
+                <a href="javascript:void(0);" class="jia_a">再加一个</a>
+            </div>
+		</div>	
+	</body>
+</html>
